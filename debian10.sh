@@ -65,13 +65,16 @@ nuclei -update-templates
 
 # shosubgo (shodan subdomain enumerator)
 cd ~/go/pkg/mod/github.com/
-git clone https://github.com/pownx/shosubgo.git #!TODO script shosubgo installation/run
+mkdir shosubgo
+cd shosubgo
+curl -LJO https://github.com/pownx/shosubgo/releases/download/1.1/shosubgo_linux_1_1
+chmod +x shosubgo_linux_1_1
 echo "" >> ~/.profile
 echo "export SHODAN_API=$shodan_api" >> ~/.bashrc
 source ~/.profile
 touch ~/.bash_aliases
 echo echo "" >> ~/.bash_aliases
-echo "alias shosubgo='go run ~/go/pkg/mod/github.com/shosubgo/main.go'" >> ~/.bash_aliases
+echo "alias shosubgo='\$HOME/go/pkg/mod/github.com/shosubgo/shosubgo_linux_1_1'" >> ~/.bash_aliases
 source ~/.bash_aliases
 
 # pip3 packages
