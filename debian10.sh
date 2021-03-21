@@ -72,10 +72,9 @@ chmod +x shosubgo_linux_1_1
 echo "" >> ~/.profile
 echo "export SHODAN_API=$shodan_api" >> ~/.bashrc
 source ~/.profile
-touch ~/.bash_aliases
-echo echo "" >> ~/.bash_aliases
-echo "alias shosubgo='\$HOME/go/pkg/mod/github.com/shosubgo/shosubgo_linux_1_1'" >> ~/.bash_aliases
-source ~/.bash_aliases
+echo "" >> ~/.bashrc
+echo "alias shosubgo='\$HOME/go/pkg/mod/github.com/shosubgo/shosubgo_linux_1_1'" >> ~/.bashrc
+source ~/.bashrc
 
 # pip3 packages
 pip3 install requests
