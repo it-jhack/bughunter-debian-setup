@@ -105,6 +105,18 @@ echo "" >> ~/.bashrc
 echo "alias assetfinder=\"\$HOME/go/bin/assetfinder\"" >> ~/.bashrc
 source ~/.bashrc
 
+# subdomainizer by nsonaniya2010
+mkdir ~/bugbounty
+mkdir bugbounty/_tools
+cd bugbounty/_tools
+git clone https://github.com/nsonaniya2010/SubDomainizer.git
+cd SubDomainizer
+pip3 install -r requirements.txt
+pip3 install colorama
+echo "" >> ~/.bashrc
+echo "alias subdomainizer=\"python3 \$HOME/bugbounty/_tools/SubDomainizer/SubDomainizer.py\"" >> ~/.bashrc
+source ~/.bashrc
+
 ####################################################
 # Python
 
