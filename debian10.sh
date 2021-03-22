@@ -105,10 +105,16 @@ echo "" >> ~/.bashrc
 echo "alias assetfinder=\"\$HOME/go/bin/assetfinder\"" >> ~/.bashrc
 source ~/.bashrc
 
+# httprobe by tomnomnom
+go get -u github.com/tomnomnom/httprobe
+echo "" >> ~/.bashrc
+echo "alias httprobe=\"\$HOME/go/bin/httprobe\"" >> ~/.bashrc
+source ~/.bashrc
+
 # subdomainizer by nsonaniya2010
 mkdir ~/bugbounty
-mkdir bugbounty/_tools
-cd bugbounty/_tools
+mkdir ~/bugbounty/_tools
+cd ~/bugbounty/_tools
 git clone https://github.com/nsonaniya2010/SubDomainizer.git
 cd SubDomainizer
 pip3 install -r requirements.txt
@@ -122,3 +128,12 @@ source ~/.bashrc
 
 # pip3 packages
 pip3 install requests
+
+# EyeWitness
+cd ~/bugbounty/_tools
+git clone https://github.com/FortyNorthSecurity/EyeWitness.git
+cd Python/setup
+./setup.sh
+echo "" >> ~/.bashrc
+echo "alias eyewitness=\"\$HOME/bugbounty/_tools/EyeWitness/Python/EyeWitness.py\"" >> ~/.bashrc
+source ~/.bashrc
