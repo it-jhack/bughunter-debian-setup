@@ -137,3 +137,13 @@ cd Python/setup
 echo "" >> ~/.bashrc
 echo "alias eyewitness=\"\$HOME/bugbounty/_tools/EyeWitness/Python/EyeWitness.py\"" >> ~/.bashrc
 source ~/.bashrc
+
+####################################################
+# Other Programming Languages
+cd ~/bugbounty/_tools
+git clone https://github.com/blechschmidt/massdns.git
+cd massdns/bin
+make
+echo "" >> ~/.bashrc
+echo "alias massdns=\"\$HOME/bugbounty/_tools/massdns/bin/massdns\"" >> ~/.bashrc
+source ~/.bashrc
