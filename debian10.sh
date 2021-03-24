@@ -54,7 +54,8 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf $go_filename
 
 # Creating Golang path on ~/.bashrc
 echo "" >> ~/.bashrc
-echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
+echo "export GOPATH='/usr/local/go'"
+echo "export PATH=\$PATH:$GOPATH/bin" >> ~/.bashrc
 source ~/.bashrc # load changes
 
 # Golang packages
