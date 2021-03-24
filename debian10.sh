@@ -33,6 +33,8 @@ apt install snapd -y
 # apt packages
 apt install git -y
 apt install python3-pip -y
+apt install mlocate -y
+updatedb #necessary for 'locate' (mlocate) to work
 
 # apt-get packages
 apt-get install jq -y
@@ -54,7 +56,7 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf $go_filename
 
 # Creating Golang path on ~/.bashrc
 echo "" >> ~/.bashrc
-echo "export GOPATH='/usr/local/go'"
+echo "export GOPATH='$HOME/go'"
 echo "export PATH=\$PATH:$GOPATH/bin" >> ~/.bashrc
 source ~/.bashrc # load changes
 
@@ -122,6 +124,12 @@ pip3 install -r requirements.txt
 pip3 install colorama
 echo "" >> ~/.bashrc
 echo "alias subdomainizer=\"python3 \$HOME/bugbounty/_tools/SubDomainizer/SubDomainizer.py\"" >> ~/.bashrc
+source ~/.bashrc
+
+# subfinder by projectdiscovery
+GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
+echo "" >> ~/.bashrc
+echo "alias subfinder=\"\$HOME/go/bin/httprobe\"" >> ~/.bashrc
 source ~/.bashrc
 
 ####################################################
