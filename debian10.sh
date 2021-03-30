@@ -8,15 +8,22 @@ else
 fi
 
 echo ""
-echo "#########################################################"
-echo "# Some API keys are required to run programs smoothly.  #"
-echo "# API keys will be appended to: $USER_HOME/.profile"
-echo "#                                                       #"
-echo "# WARNING:                                              #" 
-echo "# API keys are sensitive information and should be      #"
-echo "# treated as passwords. Check this script code on an    #"
-echo "# editor if you don't trust its source.                 #"
-echo "#########################################################"
+echo "######################################################"
+echo " Some API keys are required to run programs smoothly."
+echo " API keys will be appended to: $USER_HOME/.profile"
+echo ""
+echo " Required APIs (free):"
+echo "     - shodan.io"
+echo "     - virustotal.com"
+echo ""
+echo " Optional:"
+echo "     - spyse.com"
+echo ""
+echo " WARNING:"
+echo " API keys are sensitive information and should be"
+echo " treated as passwords. Check this script code on an"
+echo " editor if you don't trust its source."
+echo "######################################################"
 echo ""
 
 # Download Links
@@ -172,15 +179,15 @@ source $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.profile #append blank line
 
 #shosubgo
-echo "export SHODAN_API=$shodan_api" >> $USER_HOME/.profile
-echo "export VT_API_KEY=\"$virustotal_api\"" >> $USER_HOME/.profile
+echo "export SHODAN_API=$shodan_api \#shosubgo" >> $USER_HOME/.profile
+echo "export VT_API_KEY=\"$virustotal_api\" \#shosubgo" >> $USER_HOME/.profile
 
 #assetfinder
 if [ -z "$spyse_api" ] # if spyse_api is empty
 then
       echo "User opted not to provide spyse.com API key"
 else
-      echo "export SPYSE_API_TOKEN=\"$spyse_api\"" >> $USER_HOME/.profile
+      echo "export SPYSE_API_TOKEN=\"$spyse_api\" \#assetfinder" >> $USER_HOME/.profile
 fi
 
 # Update ~/.profile
