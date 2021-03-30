@@ -7,6 +7,18 @@ else
     USER_HOME=$(eval echo ~${SUDO_USER}) # USER_HOME="/home/username"
 fi
 
+echo ""
+echo "#########################################################"
+echo "# Some API keys are required to run programs smoothly.  #"
+echo "# API keys will be appended to: $USER_HOME/.profile"
+echo "#                                                       #"
+echo "# WARNING:                                              #" 
+echo "# API keys are sensitive information and should be      #"
+echo "# treated as passwords. Check this script code on an    #"
+echo "# editor if you don't trust its source.                 #"
+echo "#########################################################"
+echo ""
+
 # Download Links
 # url example = https://dl.google.com/go/go1.16.2.linux-amd64.tar.gz
 
@@ -87,8 +99,7 @@ mkdir shosubgo
 cd shosubgo
 curl -LJO https://github.com/pownx/shosubgo/releases/download/1.1/shosubgo_linux_1_1
 chmod +x shosubgo_linux_1_1
-echo "" >> $USER_HOME/.profile
-echo "export SHODAN_API=$shodan_api" >> $USER_HOME/.profile
+
 source $USER_HOME/.profile
 echo "" >> $USER_HOME/.bashrc
 echo "alias shosubgo='\$HOME/go/pkg/mod/github.com/shosubgo/shosubgo_linux_1_1'" >> $USER_HOME/.bashrc
@@ -102,14 +113,7 @@ source $USER_HOME/.bashrc
 
 # assetfinder by tomnomnom
 go get -u github.com/tomnomnom/assetfinder
-echo "" >> $USER_HOME/.profile
-echo "export VT_API_KEY=\"$virustotal_api\"" >> $USER_HOME/.profile
-if [ -z "$spyse_api" ] # if spyse_api is empty
-then
-      echo "User opted not to provide spyse.com API key"
-else
-      echo "export SPYSE_API_TOKEN=\"$spyse_api\"" >> $USER_HOME/.profile
-fi
+
 source $USER_HOME/.profile
 echo "" >> $USER_HOME/.bashrc
 echo "alias assetfinder=\"\$HOME/go/bin/assetfinder\"" >> $USER_HOME/.bashrc
@@ -154,8 +158,7 @@ echo "" >> $USER_HOME/.bashrc
 echo "alias eyewitness=\"\$HOME/bugbounty/_tools/EyeWitness/Python/EyeWitness.py\"" >> $USER_HOME/.bashrc
 source $USER_HOME/.bashrc
 
-####################################################
-# Other Programming Languages
+### Other Programming Languages
 cd $USER_HOME/bugbounty/_tools
 git clone https://github.com/blechschmidt/massdns.git
 cd massdns/bin
@@ -163,3 +166,22 @@ make
 echo "" >> $USER_HOME/.bashrc
 echo "alias massdns=\"\$HOME/bugbounty/_tools/massdns/bin/massdns\"" >> $USER_HOME/.bashrc
 source $USER_HOME/.bashrc
+
+
+### WRITING APIs
+echo "" >> $USER_HOME/.profile #append blank line
+
+#shosubgo
+echo "export SHODAN_API=$shodan_api" >> $USER_HOME/.profile
+echo "export VT_API_KEY=\"$virustotal_api\"" >> $USER_HOME/.profile
+
+#assetfinder
+if [ -z "$spyse_api" ] # if spyse_api is empty
+then
+      echo "User opted not to provide spyse.com API key"
+else
+      echo "export SPYSE_API_TOKEN=\"$spyse_api\"" >> $USER_HOME/.profile
+fi
+
+# Update ~/.profile
+source $USER_HOME/.profile
