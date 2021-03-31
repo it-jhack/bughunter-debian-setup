@@ -76,8 +76,7 @@ echo " Some API keys are required to run programs smoothly."
 echo " API keys will be appended to: $USER_HOME/.profile"
 echo ""
 echo " Required APIs (free):"
-echo "     - shodan.io"
-echo "     - virustotal.com"
+echo "     - None (yet)"
 echo ""
 echo " Optional:"
 echo "     - spyse.com"
@@ -89,16 +88,8 @@ echo " editor if you don't trust its source."
 echo "######################################################"
 echo ""
 
-# Shodan.io API to create environment var
-echo -n "Enter your shodan.io API key (free registration): "
-read shodan_api
-
-# VirusTotal API key
-echo -n "Enter your virustotal.com API key (free registration): "
-read virustotal_api
-
 # SPYSE API key [Optional]
-echo -n "[Optional] Enter your spyse.com API key (used on 'assetfinder'): "
+echo -n "[Optional] Enter your spyse.com API key (used on 'assetfinder') or just press Enter: "
 read spyse_api
 
 ####################################################
@@ -124,66 +115,23 @@ apt-get install tree -y
 # Golang packages
 snap install amass # -y flag not needed
 
-# Nuclei
-cd $USER_HOME/go/pkg/mod/github.com/
-mkdir projectdiscovery
-cd projectdiscovery
-git clone https://github.com/projectdiscovery/nuclei.git
-cd nuclei/v2/cmd/nuclei
-go build
-mv nuclei /usr/local/bin/
+# Nuclei by ProjectDiscovery
+GO111MODULE=on go get -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
 nuclei -version
 nuclei -update-templates
 
-# shosubgo (shodan subdomain enumerator)
-cd $USER_HOME/go/pkg/mod/github.com/
-mkdir shosubgo
-cd shosubgo
-curl -LJO https://github.com/pownx/shosubgo/releases/download/1.1/shosubgo_linux_1_1
-chmod +x shosubgo_linux_1_1
-
-source $USER_HOME/.profile
-echo "" >> $USER_HOME/.bashrc
-echo "alias shosubgo='\$HOME/go/pkg/mod/github.com/shosubgo/shosubgo_linux_1_1'" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc
-
 # hakrawler by hakluke
 go get github.com/hakluke/hakrawler
-echo "" >> $USER_HOME/.bashrc
-echo "alias hakrawler='\$HOME/go/bin/hakrawler'" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc
 
 # assetfinder by tomnomnom
 go get -u github.com/tomnomnom/assetfinder
 
-source $USER_HOME/.profile
-echo "" >> $USER_HOME/.bashrc
-echo "alias assetfinder=\"\$HOME/go/bin/assetfinder\"" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc
-
 # httprobe by tomnomnom
 go get -u github.com/tomnomnom/httprobe
-echo "" >> $USER_HOME/.bashrc
-echo "alias httprobe=\"\$HOME/go/bin/httprobe\"" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc
-
-# subdomainizer by nsonaniya2010
-mkdir $USER_HOME/bugbounty
-mkdir $USER_HOME/bugbounty/_tools
-cd $USER_HOME/bugbounty/_tools
-git clone https://github.com/nsonaniya2010/SubDomainizer.git
-cd SubDomainizer
-pip3 install -r requirements.txt
-pip3 install colorama
-echo "" >> $USER_HOME/.bashrc
-echo "alias subdomainizer=\"python3 \$HOME/bugbounty/_tools/SubDomainizer/SubDomainizer.py\"" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc
 
 # subfinder by projectdiscovery
 GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
-echo "" >> $USER_HOME/.bashrc
-echo "alias subfinder=\"\$HOME/go/bin/httprobe\"" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc
+
 
 ####################################################
 # Python
@@ -192,32 +140,28 @@ source $USER_HOME/.bashrc
 pip3 install requests
 
 # EyeWitness
-cd $USER_HOME/bugbounty/_tools
+if [ ! -d "$USER_HOME/bugbounty" ]; then mkdir $USER_HOME/bugbounty; fi
+if [ ! -d "$USER_HOME/bugbounty/+tools" ]; then mkdir $USER_HOME/bugbounty/+tools; fi
+cd $USER_HOME/bugbounty/+tools
 git clone https://github.com/FortyNorthSecurity/EyeWitness.git
-cd Python/setup
-./setup.sh
+cd EyeWitness/Python/setup
+sudo ./setup.sh
 echo "" >> $USER_HOME/.bashrc
-echo "alias eyewitness=\"\$HOME/bugbounty/_tools/EyeWitness/Python/EyeWitness.py\"" >> $USER_HOME/.bashrc
+echo "alias eyewitness=\"\$HOME/bugbounty/+tools/EyeWitness/Python/EyeWitness.py\"" >> $USER_HOME/.bashrc
 source $USER_HOME/.bashrc
 
 ### Other Programming Languages
-cd $USER_HOME/bugbounty/_tools
+cd $USER_HOME/bugbounty/+tools
 git clone https://github.com/blechschmidt/massdns.git
-cd massdns/bin
+cd massdns
 make
 echo "" >> $USER_HOME/.bashrc
-echo "alias massdns=\"\$HOME/bugbounty/_tools/massdns/bin/massdns\"" >> $USER_HOME/.bashrc
+echo "alias massdns=\"\$HOME/bugbounty/+tools/massdns/bin/massdns\"" >> $USER_HOME/.bashrc
 source $USER_HOME/.bashrc
 
 
 ### WRITING APIs
 echo "" >> $USER_HOME/.profile #append blank line
-
-#shosubgo
-echo "" >> $USER_HOME/.profile
-echo "#shosubgo" >> $USER_HOME/.profile
-echo "export SHODAN_API=$shodan_api" >> $USER_HOME/.profile
-echo "export VT_API_KEY=\"$virustotal_api\"" >> $USER_HOME/.profile
 
 #assetfinder
 if [ -z "$spyse_api" ] # if spyse_api is empty
