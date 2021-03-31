@@ -1,10 +1,50 @@
-#!/bin/bash
+#!/bin/bash -i
+# -i = to make 'source' command work within the script
 
 if [ -z $SUDO_USER ]; # if SUDO_USER is empty, user is root
 then
     USER_HOME=$HOME # USER_HOME="/root"
 else
     USER_HOME=$(eval echo ~${SUDO_USER}) # USER_HOME="/home/username"
+fi
+
+# Doing Config Files Backup
+cd $USER_HOME
+timestamp=$(date +"%y%m%d-%H%M%S")
+mkdir $timestamp-backup-config
+cp .bashrc $timestamp-backup-config
+cp .profile $timestamp-backup-config
+cp -r .config $timestamp-backup-config
+
+# Download Links
+# url example = https://golang.org/dl/go1.16.2.linux-amd64.tar.gz
+
+# Golang Download/Installation/Path settings
+#TODO check if golang already installed ?
+#TODO check if $GOPATH is set ?
+#TODO check if $GOPATH in $PATH ?
+echo "GOLANG INSTALLATION:"
+echo -n "Install Golang (y/n)? "
+read install_go
+if [ $install_go == "y" ];
+then
+    echo -n "Enter Golang (for Debian/Linux) download URL (example: https://golang.org/dl/go1.16.2.linux-amd64.tar.gz): "
+    read go_url
+    go_filename=${go_url##*/} # strip last part of $go_url
+
+    cd $USER_HOME/Downloads
+
+    # Downloading Golang
+    wget $go_url
+
+    # Extracting Golang
+    rm -rf /usr/local/go && tar -C /usr/local -xzf $go_filename
+
+    # Exporting Golang path on ~/.bashrc
+    echo "" >> $USER_HOME/.bashrc
+    echo "export PATH=\$PATH:/usr/local/go/bin" >> $USER_HOME/.bashrc
+    source $USER_HOME/.bashrc # load changes
+    go version
 fi
 
 echo ""
@@ -25,14 +65,6 @@ echo " treated as passwords. Check this script code on an"
 echo " editor if you don't trust its source."
 echo "######################################################"
 echo ""
-
-# Download Links
-# url example = https://dl.google.com/go/go1.16.2.linux-amd64.tar.gz
-
-# Golang download
-echo -n "Enter Golang (for Debian/Linux) download URL (example: https://dl.google.com/go/go1.16.2.linux-amd64.tar.gz): "
-read go_url
-go_filename=${go_url##*/} # strip last part of $go_url
 
 # Shodan.io API to create environment var
 echo -n "Enter your shodan.io API key (free registration): "
@@ -65,26 +97,6 @@ updatedb #necessary for 'locate' (mlocate) to work
 # apt-get packages
 apt-get install jq -y
 apt-get install tree -y
-
-####################################################
-#GOLANG
-
-# Creating script_download folder
-cd $USER_HOME
-mkdir script_downloads
-cd script_downloads
-
-# Downloading Golang
-curl $go_url
-
-# Extracting Golang
-rm -rf /usr/local/go && tar -C /usr/local -xzf $go_filename
-
-# Creating Golang path on ~/.bashrc
-echo "" >> $USER_HOME/.bashrc
-echo "export GOPATH='$USER_HOME/go'"
-echo "export PATH=\$PATH:$GOPATH/bin" >> $USER_HOME/.bashrc
-source $USER_HOME/.bashrc # load changes
 
 # Golang packages
 snap install amass # -y flag not needed
