@@ -20,9 +20,6 @@ cp -r .config $timestamp-backup-config
 # url example = https://golang.org/dl/go1.16.2.linux-amd64.tar.gz
 
 # Golang Download/Installation/Path settings
-#TODO check if golang already installed ?
-#TODO check if $GOPATH is set ?
-#TODO check if $GOPATH in $PATH ?
 echo "GOLANG INSTALLATION:"
 echo -n "Install Golang (y/n)? "
 read install_go
@@ -37,14 +34,40 @@ then
     # Downloading Golang
     wget $go_url
 
-    # Extracting Golang
+    # Extract/Install Golang
     rm -rf /usr/local/go && tar -C /usr/local -xzf $go_filename
 
+    # Setting user go workspace
+    if [ ! -d "$USER_HOME/go" ]; # if NOT exists
+    then
+        mkdir $USER_HOME/go
+        cd $USER_HOME/go
+        mkdir src pkg bin
+    else # if exists
+        cd $USER_HOME/go
+        if [ ! -d "$USER_HOME/go/src" ]; then mkdir $USER_HOME/go/src; fi
+        if [ ! -d "$USER_HOME/go/pkg" ]; then mkdir $USER_HOME/go/pkg; fi
+        if [ ! -d "$USER_HOME/go/bin" ]; then mkdir $USER_HOME/go/bin; fi
+    fi
+    
     # Exporting Golang path on ~/.bashrc
     echo "" >> $USER_HOME/.bashrc
+    echo "export GOPATH=$USER_HOME/go" >> $USER_HOME/.bashrc
     echo "export PATH=\$PATH:/usr/local/go/bin" >> $USER_HOME/.bashrc
     source $USER_HOME/.bashrc # load changes
+
+    # Adding go to root's bin, so you can exec go as sudo
+    if [ $USER_HOME != "/root" ];
+    then
+        cd /usr/local/go/bin
+        sudo cp go /bin
+        sudo cp gofmt /bin
+    fi
+
+    echo "User Go version:"
     go version
+    echo "root Go version:"
+    sudo go version
 fi
 
 echo ""
@@ -191,15 +214,19 @@ source $USER_HOME/.bashrc
 echo "" >> $USER_HOME/.profile #append blank line
 
 #shosubgo
-echo "export SHODAN_API=$shodan_api \#shosubgo" >> $USER_HOME/.profile
-echo "export VT_API_KEY=\"$virustotal_api\" \#shosubgo" >> $USER_HOME/.profile
+echo "" >> $USER_HOME/.profile
+echo "#shosubgo" >> $USER_HOME/.profile
+echo "export SHODAN_API=$shodan_api" >> $USER_HOME/.profile
+echo "export VT_API_KEY=\"$virustotal_api\"" >> $USER_HOME/.profile
 
 #assetfinder
 if [ -z "$spyse_api" ] # if spyse_api is empty
 then
-      echo "User opted not to provide spyse.com API key"
+    echo "User opted not to provide spyse.com API key"
 else
-      echo "export SPYSE_API_TOKEN=\"$spyse_api\" \#assetfinder" >> $USER_HOME/.profile
+    echo "" >> $USER_HOME/.profile
+    echo "#assetfinder" >> $USER_HOME/.profile
+    echo "export SPYSE_API_TOKEN=\"$spyse_api\"" >> $USER_HOME/.profile
 fi
 
 # Update ~/.profile
