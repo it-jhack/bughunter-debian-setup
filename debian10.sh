@@ -16,9 +16,6 @@ cp .bashrc $timestamp-backup-config
 cp .profile $timestamp-backup-config
 cp -r .config $timestamp-backup-config
 
-# Download Links
-# url example = https://golang.org/dl/go1.16.2.linux-amd64.tar.gz
-
 # Golang Download/Installation/Path settings
 echo "GOLANG INSTALLATION:"
 echo -n "Install Golang (y/n)? "
@@ -106,7 +103,8 @@ sudo apt install snapd -y
 sudo apt install git -y
 sudo apt install python3-pip -y
 sudo apt install mlocate -y
-sudo updatedb #necessary for 'locate' (mlocate) to work
+sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
+sudo apt install nmap
 
 # apt-get packages
 sudo apt-get install jq -y
@@ -151,6 +149,7 @@ echo "alias eyewitness=\"\$HOME/bugbounty/+tools/EyeWitness/Python/EyeWitness.py
 source $USER_HOME/.bashrc
 
 ### Other Programming Languages
+# MassDNS
 cd $USER_HOME/bugbounty/+tools
 git clone https://github.com/blechschmidt/massdns.git
 cd massdns
@@ -159,6 +158,12 @@ echo "" >> $USER_HOME/.bashrc
 echo "alias massdns=\"\$HOME/bugbounty/+tools/massdns/bin/massdns\"" >> $USER_HOME/.bashrc
 source $USER_HOME/.bashrc
 
+# Masscan
+sudo apt-get --assume-yes install git make gcc
+cd $USER_HOME/bugbounty/+tools
+git clone https://github.com/robertdavidgraham/masscan
+cd masscan
+sudo make install
 
 ### WRITING APIs
 echo "" >> $USER_HOME/.profile #append blank line
