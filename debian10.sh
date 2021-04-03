@@ -96,24 +96,24 @@ read spyse_api
 #PACKAGE MANAGERS
 
 # apt && apt-get update/upgrade
-apt update && apt upgrade -y
-apt-get update && apt-get upgrade -y
+sudo apt update && apt upgrade -y
+sudo apt-get update && apt-get upgrade -y
 
 # install snap
-apt install snapd -y
+sudo apt install snapd -y
 
 # apt packages
-apt install git -y
-apt install python3-pip -y
-apt install mlocate -y
-updatedb #necessary for 'locate' (mlocate) to work
+sudo apt install git -y
+sudo apt install python3-pip -y
+sudo apt install mlocate -y
+sudo updatedb #necessary for 'locate' (mlocate) to work
 
 # apt-get packages
-apt-get install jq -y
-apt-get install tree -y
+sudo apt-get install jq -y
+sudo apt-get install tree -y
 
 # Golang packages
-snap install amass # -y flag not needed
+sudo snap install amass # -y flag not needed
 
 # Nuclei by ProjectDiscovery
 GO111MODULE=on go get -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
