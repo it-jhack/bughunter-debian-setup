@@ -16,6 +16,58 @@ cp .bashrc $timestamp-backup-config
 cp .profile $timestamp-backup-config
 cp -r .config $timestamp-backup-config
 
+####################################################
+#PACKAGE MANAGERS
+
+# apt && apt-get update/upgrade
+sudo apt update && apt upgrade -y
+sudo apt-get update && apt-get upgrade -y
+
+# install snap
+sudo apt install snapd -y
+
+# apt packages
+sudo apt install git -y
+sudo apt install python3-pip -y
+sudo apt install mlocate -y
+sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
+sudo apt install nmap
+
+# apt-get packages
+sudo apt-get install jq -y
+sudo apt-get install tree -y
+sudo apt-get install iotop -y
+sudo apt-get install nload -y
+
+##############
+# Rust Install
+echo -n "Install Rust Language (y/n)? "
+read install_rust
+if [ $install_rust == "y" ];
+then
+    curl https://sh.rustup.rs -sSf | sh
+    source $USER_HOME/.cargo/env
+    source $USER_HOME/.profile
+    sudo apt-get install build-essential -y
+    sudo apt autoremove -y
+
+    # Export Rust Path
+    echo "" >> $USER_HOME/.bashrc
+    echo "export PATH=\$PATH:\$HOME/.cargo/bin" >> $USER_HOME/.bashrc
+    source $USER_HOME/.bashrc # load changes
+fi
+
+# RustScan Install
+echo -n "Install RustScan (y/n)? "
+read install_rustscan
+if [ $install_rustscan == "y" ];
+then
+    cargo install rustscan
+fi
+
+cd $USER_HOME/Downloads
+wget $rustscan_url
+
 # Golang Download/Installation/Path settings
 echo "GOLANG INSTALLATION:"
 echo -n "Install Golang (y/n)? "
@@ -88,27 +140,6 @@ echo ""
 # SPYSE API key [Optional]
 echo -n "[Optional] Enter your spyse.com API key (used on 'assetfinder') or just press Enter: "
 read spyse_api
-
-####################################################
-#PACKAGE MANAGERS
-
-# apt && apt-get update/upgrade
-sudo apt update && apt upgrade -y
-sudo apt-get update && apt-get upgrade -y
-
-# install snap
-sudo apt install snapd -y
-
-# apt packages
-sudo apt install git -y
-sudo apt install python3-pip -y
-sudo apt install mlocate -y
-sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
-sudo apt install nmap
-
-# apt-get packages
-sudo apt-get install jq -y
-sudo apt-get install tree -y
 
 # Golang packages
 sudo snap install amass # -y flag not needed
