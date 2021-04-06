@@ -31,13 +31,21 @@ sudo apt install git -y
 sudo apt install python3-pip -y
 sudo apt install mlocate -y
 sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
-sudo apt install nmap
+sudo apt install nmap -y
+sudo apt install dnsutils # dig, and more
 
 # apt-get packages
 sudo apt-get install jq -y
 sudo apt-get install tree -y
 sudo apt-get install iotop -y
 sudo apt-get install nload -y
+sudo apt-get install whois -y
+
+# Autocomplete commands based on bash history using up/down arrow keys
+echo "" >> $USER_HOME/.bashrc
+echo "# Autocomplete commands based on bash history using up/down arrow keys" >> $USER_HOME/.bashrc
+echo "bind '\"\e[A\": history-search-backward'" >> $USER_HOME/.bashrc
+echo "bind '\"\e[B\": history-search-forward'" >> $USER_HOME/.bashrc
 
 ##############
 # Rust Install
