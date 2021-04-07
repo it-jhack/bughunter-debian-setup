@@ -17,7 +17,9 @@ cp .profile $timestamp-backup-config
 cp -r .config $timestamp-backup-config
 
 ####################################################
-#PACKAGE MANAGERS
+# PACKAGE MANAGERS
+# Note: after installation some of these packages can
+# only be run as root/sudo. Ex: "sudo arp-scan -l"
 
 # apt && apt-get update/upgrade
 sudo apt update && apt upgrade -y
@@ -31,8 +33,12 @@ sudo apt install git -y
 sudo apt install python3-pip -y
 sudo apt install mlocate -y
 sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
+sudo apt install dnsutils -y # dig, and more
 sudo apt install nmap -y
-sudo apt install dnsutils # dig, and more
+#(nmap: adding more good scripts)
+cd /usr/share/nmap/scripts
+sudo git clone https://github.com/vulnersCom/nmap-vulners.git
+sudo git clone https://github.com/scipag/vulscan.git
 
 # apt-get packages
 sudo apt-get install jq -y
@@ -40,8 +46,10 @@ sudo apt-get install tree -y
 sudo apt-get install iotop -y
 sudo apt-get install nload -y
 sudo apt-get install whois -y
+sudo apt-get install arp-scan -y
 
 # Autocomplete commands based on bash history using up/down arrow keys
+cd $USER_HOME
 echo "" >> $USER_HOME/.bashrc
 echo "# Autocomplete commands based on bash history using up/down arrow keys" >> $USER_HOME/.bashrc
 echo "bind '\"\e[A\": history-search-backward'" >> $USER_HOME/.bashrc
@@ -113,7 +121,7 @@ then
     echo "export PATH=\$PATH:/usr/local/go/bin" >> $USER_HOME/.bashrc
     source $USER_HOME/.bashrc # load changes
 
-    # Adding go to root's bin, so you can exec go as sudo
+    # Adding 'go' to root's bin (if you're 'root'), so you can exec go
     if [ $USER_HOME != "/root" ];
     then
         cd /usr/local/go/bin
@@ -173,8 +181,13 @@ GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
 ####################################################
 # Python
 
-# pip3 packages
+# pip3 Packages
 pip3 install requests
+
+# pip3 Libraries - to check installation version:
+# pip3 list | grep lib-install-name
+pip3 install python3-nmap #import nmap3
+pip3 install python-nmap #import nmap
 
 # EyeWitness
 if [ ! -d "$USER_HOME/bugbounty" ]; then mkdir $USER_HOME/bugbounty; fi
