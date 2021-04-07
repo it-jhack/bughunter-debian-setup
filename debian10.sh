@@ -232,3 +232,24 @@ fi
 
 # Update ~/.profile
 source $USER_HOME/.profile
+
+###################################################
+# Auto-Update Script (for otherwise manual methods)
+if [ ! -d "$USER_HOME/scripts" ]; # if NOT exists
+then
+    mkdir $USER_HOME/scripts
+fi
+
+cd $USER_HOME/scripts
+echo '#!/bin/bash' >> bugbounty-update.sh
+echo "" >> bugbounty-update.sh
+
+# Nmap auto-updates
+echo "sudo nmap --script-updatedb" >> bugbounty-update.sh
+echo "cd /usr/share/nmap/scripts/nmap-vulners" >> bugbounty-update.sh
+echo "sudo git pull" >> bugbounty-update.sh
+echo "cd /usr/share/nmap/scripts/vulscan" >> bugbounty-update.sh
+echo "sudo git pull" >> bugbounty-update.sh
+
+# Making script executable
+chmod +x bugbounty-update.sh
