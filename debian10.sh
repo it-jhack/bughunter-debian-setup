@@ -39,6 +39,10 @@ sudo apt install nmap -y
 cd /usr/share/nmap/scripts
 sudo git clone https://github.com/vulnersCom/nmap-vulners.git
 sudo git clone https://github.com/scipag/vulscan.git
+#(nmap: create link to repos scripts)
+sudo ln -s /usr/share/nmap/scripts/vulscan/vulscan.nse ./vulscan.nse
+sudo ln -s /usr/share/nmap/scripts/nmap-vulners/vulners.nse ./vulners.nse
+sudo nmap --script-updatedb
 
 # apt-get packages
 sudo apt-get install jq -y
@@ -237,10 +241,10 @@ source $USER_HOME/.profile
 # Auto-Update Script (for otherwise manual methods)
 if [ ! -d "$USER_HOME/scripts" ]; # if NOT exists
 then
-    mkdir $USER_HOME/scripts
+    mkdir $USER_HOME/my-scripts
 fi
 
-cd $USER_HOME/scripts
+cd $USER_HOME/my-scripts # NOT nmap scripts folder!
 echo '#!/bin/bash' >> bugbounty-update.sh
 echo "" >> bugbounty-update.sh
 
