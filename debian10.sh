@@ -51,6 +51,7 @@ sudo apt-get install iotop -y
 sudo apt-get install nload -y
 sudo apt-get install whois -y
 sudo apt-get install arp-scan -y
+sudo apt-get install ack -y
 
 # Autocomplete commands based on bash history using up/down arrow keys
 cd $USER_HOME
