@@ -34,6 +34,7 @@ sudo apt install python3-pip -y
 sudo apt install mlocate -y
 sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
 sudo apt install dnsutils -y # dig, and more
+sudo apt install pdfgrep -y
 sudo apt install nmap -y
 #(nmap: adding more good scripts)
 cd /usr/share/nmap/scripts
@@ -52,6 +53,7 @@ sudo apt-get install nload -y
 sudo apt-get install whois -y
 sudo apt-get install arp-scan -y
 sudo apt-get install ack -y
+
 
 # Autocomplete commands based on bash history using up/down arrow keys
 cd $USER_HOME
