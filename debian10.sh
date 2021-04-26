@@ -27,6 +27,7 @@ sudo apt-get update && apt-get upgrade -y
 
 # install snap
 sudo apt install snapd -y
+sudo snap install core
 
 # apt packages
 sudo apt install git -y
@@ -55,6 +56,8 @@ sudo apt-get install arp-scan -y
 sudo apt-get install ack -y
 sudo apt-get install tshark -y # console wireshark
 
+# snap
+sudo snap install sqlmap
 
 # Autocomplete commands based on bash history using up/down arrow keys
 cd $USER_HOME
