@@ -31,6 +31,8 @@ sudo snap install core
 
 # apt packages
 sudo apt install git -y
+sudo apt install vim -y
+sudo apt install tmux -y
 sudo apt install python3-pip -y
 sudo apt install mlocate -y
 sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
