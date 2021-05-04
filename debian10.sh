@@ -131,7 +131,7 @@ then
     # Exporting Golang path on ~/.bashrc
     echo "" >> $USER_HOME/.bashrc
     echo "export GOPATH=$USER_HOME/go" >> $USER_HOME/.bashrc
-    echo "export PATH=\$PATH:/usr/local/go/bin" >> $USER_HOME/.bashrc
+    echo "export PATH=\$PATH:\$HOME/go/bin" >> $USER_HOME/.bashrc
     source $USER_HOME/.bashrc # load changes
 
     # Adding 'go' to root's bin (if you're 'root'), so you can exec go
@@ -196,6 +196,9 @@ GO111MODULE=on go get -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder
 
 # pip3 Packages
 pip3 install requests
+pip3 install ndjson
+pip3 install more-itertools
+pip3 install jq
 
 # pip3 Libraries - to check installation version:
 # pip3 list | grep lib-install-name

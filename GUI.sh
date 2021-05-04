@@ -22,3 +22,4 @@ sudo apt-get update && apt-get upgrade -y
 
 # install qBitTorrent
 sudo apt-get install qbittorrent -y
+sudo apt-get install wireshark -y
