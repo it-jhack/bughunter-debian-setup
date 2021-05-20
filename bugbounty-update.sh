@@ -7,6 +7,9 @@ else
     USER_HOME=$(eval echo ~${SUDO_USER}) # USER_HOME="/home/username"
 fi
 
+
+## NMAP ---------------
+
 if [ ! -d "/usr/share/nmap/scripts/nmap-vulners" ]; # if NOT exists
 then
     sudo git clone https://github.com/vulnersCom/nmap-vulners.git /usr/share/nmap/scripts/nmap-vulners
