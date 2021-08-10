@@ -13,13 +13,31 @@ fi
 ####################################################
 # Script to install GUI programs
 
-# Adding qBitTorrent package (no updates on this method)
+# Adding packages
+## qBitTorrent
 sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable -y
+## Atom Editor
+sudo apt install software-properties-common apt-transport-https wget
+wget -q https://packagecloud.io/AtomEditor/atom/gpgkey -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
+## Sublime Merge
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+sudo apt-get install apt-transport-https
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 # apt && apt-get update/upgrade
 sudo apt update && apt upgrade -y
 sudo apt-get update && apt-get upgrade -y
 
-# install qBitTorrent
+# apt-get installations
 sudo apt-get install qbittorrent -y
 sudo apt-get install wireshark -y
+sudo apt-get install kolourpaint -y
+sudo apt-get install sublime-merge -y
+
+# apt installations
+sudo apt install atom -y
+
+# Other Package Managers
+sudo snap install discord
+sudo snap install colorpicker-app

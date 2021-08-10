@@ -38,6 +38,7 @@ sudo apt install mlocate -y
 sudo updatedb #necessary for 'locate' (mlocate) to work, also to refresh list that it uses
 sudo apt install dnsutils -y # dig, and more
 sudo apt install pdfgrep -y
+sudo apt install postgresql -y # sudo service postgresql start/stop
 sudo apt install nmap -y
 #(nmap: adding more good scripts)
 cd /usr/share/nmap/scripts
@@ -49,6 +50,7 @@ sudo ln -s /usr/share/nmap/scripts/nmap-vulners/vulners.nse ./vulners.nse
 sudo nmap --script-updatedb
 
 # apt-get packages
+sudo apt-get install htop -y
 sudo apt-get install jq -y
 sudo apt-get install tree -y
 sudo apt-get install iotop -y
@@ -60,6 +62,12 @@ sudo apt-get install tshark -y # console wireshark
 
 # snap
 sudo snap install sqlmap
+
+# metasploit
+cd $USER_HOME/Downloads
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
+chmod +x msfinstall
+sudo ./msfinstall
 
 # Autocomplete commands based on bash history using up/down arrow keys
 cd $USER_HOME
